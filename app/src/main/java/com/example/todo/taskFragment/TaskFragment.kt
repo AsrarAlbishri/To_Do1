@@ -1,5 +1,6 @@
 package com.example.todo.taskFragment
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -12,11 +13,16 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import androidx.lifecycle.ViewModelProvider
+import com.example.todo.DatePickerDialogFragment
 import com.example.todo.R
 import com.example.todo.database.Task
+import com.example.todo.taskListFragment.KEY_ID
+import java.util.*
 
 
-class TaskFragment : Fragment() {
+
+const val Task_DATE_KEY = "taskDate"
+class TaskFragment : Fragment(),DatePickerDialogFragment.DatePickerCallback {
 
 
     private lateinit var titleEditText: EditText
@@ -28,8 +34,6 @@ class TaskFragment : Fragment() {
     private lateinit var task : Task
 
     private val fragmentViewModel by lazy { ViewModelProvider(this).get(TaskFragmentViewModel::class.java) }
-
-
 
 
     override fun onCreateView(
@@ -60,19 +64,29 @@ class TaskFragment : Fragment() {
 
         }
 
-
-
         return view
     }
 
     override fun onStart() {
         super.onStart()
 
+        dateDueBtn.setOnClickListener {
+            val args = Bundle()
+            args.putSerializable(Task_DATE_KEY,task.date)
+
+            val datePicker = DatePickerDialogFragment()
+            datePicker.arguments = args
+
+            datePicker.setTargetFragment(this,0)
+
+            datePicker.show(this.parentFragmentManager,"date picker")
+
+        }
+
 
         val textWatcher = object:TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 //i will do nothing
-
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -94,6 +108,49 @@ class TaskFragment : Fragment() {
             task.isCompleted = isChecked
         }
 
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        task = Task()
+
+        val taskId = arguments?.getSerializable(KEY_ID) as UUID
+        fragmentViewModel.loadTask(taskId)
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        fragmentViewModel.taskLiveData.observe(
+            viewLifecycleOwner, androidx.lifecycle.Observer {
+                it?.let {
+                     task = it
+                    titleEditText.setText(it.title)
+                    detailEditText.setText(it.detail)
+                    dateCreateBtn.text = it.date.toString()
+                    dateDueBtn.text = it.date.toString()
+                    isCompletedCheckBox.isChecked = it.isCompleted
+
+
+                }
+
+            }
+
+        )
+
+
+    }
+
+    override fun onDateSelected(date: Date) {
+        task.date = date
+        dateDueBtn.text = date.toString()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        fragmentViewModel.saveUpdate(task)
     }
 
 
