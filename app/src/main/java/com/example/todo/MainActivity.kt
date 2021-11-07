@@ -3,6 +3,7 @@ package com.example.todo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.todo.taskFragment.TaskFragment
+import com.example.todo.taskListFragment.TaskListFragment
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,8 +15,10 @@ class MainActivity : AppCompatActivity() {
 
         if (currentFragment == null){
 
-            val fragment = TaskFragment()
-            supportFragmentManager.beginTransaction()
+           // val fragment = TaskFragment()
+            val fragment = TaskListFragment()
+            supportFragmentManager
+                .beginTransaction()
                 .add(R.id.fragment_container,fragment)
                 .commit()
 
