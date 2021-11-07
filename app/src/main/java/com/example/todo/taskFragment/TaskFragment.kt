@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
+import androidx.lifecycle.ViewModelProvider
 import com.example.todo.R
 import com.example.todo.database.Task
 
@@ -19,10 +20,14 @@ class TaskFragment : Fragment() {
 
 
     private lateinit var titleEditText: EditText
-    private lateinit var dateBtn:Button
+    private lateinit var detailEditText: EditText
+    private lateinit var dateCreateBtn:Button
+    private lateinit var dateDueBtn:Button
     private lateinit var isCompletedCheckBox:CheckBox
 
     private lateinit var task : Task
+
+    private val fragmentViewModel by lazy { ViewModelProvider(this).get(TaskFragmentViewModel::class.java) }
 
 
 
@@ -36,14 +41,25 @@ class TaskFragment : Fragment() {
 
 
         titleEditText = view.findViewById(R.id.task_title)
-        dateBtn = view.findViewById(R.id.task_date)
+        dateCreateBtn = view.findViewById(R.id.task_create_date)
+        dateDueBtn = view.findViewById(R.id.task_date_due)
         isCompletedCheckBox = view.findViewById(R.id.task_completed)
+        detailEditText = view.findViewById(R.id.task_details)
 
-        dateBtn.apply {
+
+
+        dateCreateBtn.apply {
 
             text = task.date.toString()
 
         }
+
+        dateDueBtn.apply {
+
+            text = task.date.toString()
+
+        }
+
 
 
         return view
@@ -62,6 +78,7 @@ class TaskFragment : Fragment() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 Log.d("ASRAR", p0.toString())
                 task.title= p0.toString()
+                task.detail= p0.toString()
             }
 
             override fun afterTextChanged(p0: Editable?) {
@@ -71,6 +88,7 @@ class TaskFragment : Fragment() {
         }
 
         titleEditText.addTextChangedListener(textWatcher)
+        detailEditText.addTextChangedListener(textWatcher)
 
         isCompletedCheckBox.setOnCheckedChangeListener {  _, isChecked ->
             task.isCompleted = isChecked

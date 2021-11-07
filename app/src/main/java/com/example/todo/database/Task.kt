@@ -8,5 +8,6 @@ import java.util.*
 data class Task(
     @PrimaryKey val id: UUID = UUID.randomUUID(),
     var title : String = "",
+    var detail : String = "",
     var date : Date = Date(),
     var isCompleted : Boolean = false)
