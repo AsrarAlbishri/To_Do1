@@ -17,6 +17,7 @@ class TaskRepository private constructor(context: Context){
         DATABASE_NAME
     ).build()
 
+
     private val taskDao = database.taskDao()
 
     private val executor = Executors.newSingleThreadExecutor()
@@ -37,6 +38,12 @@ class TaskRepository private constructor(context: Context){
     fun addTask(task: Task){
         executor.execute{
             taskDao.addTask(task)
+        }
+    }
+
+    fun deleteTask(task: Task){
+        executor.execute {
+            taskDao.deleteTask(task)
         }
     }
 

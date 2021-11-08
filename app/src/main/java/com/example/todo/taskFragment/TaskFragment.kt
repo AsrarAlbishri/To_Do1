@@ -1,6 +1,5 @@
 package com.example.todo.taskFragment
 
-import android.app.DatePickerDialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -12,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.ImageView
 import androidx.lifecycle.ViewModelProvider
 import com.example.todo.DatePickerDialogFragment
 import com.example.todo.R
@@ -30,6 +30,7 @@ class TaskFragment : Fragment(),DatePickerDialogFragment.DatePickerCallback {
     private lateinit var dateCreateBtn:Button
     private lateinit var dateDueBtn:Button
     private lateinit var isCompletedCheckBox:CheckBox
+    private lateinit var deleteTask : ImageView
 
     private lateinit var task : Task
 
@@ -49,18 +50,13 @@ class TaskFragment : Fragment(),DatePickerDialogFragment.DatePickerCallback {
         dateDueBtn = view.findViewById(R.id.task_date_due)
         isCompletedCheckBox = view.findViewById(R.id.task_completed)
         detailEditText = view.findViewById(R.id.task_details)
+        deleteTask = view.findViewById(R.id.task_deleted_iv)
 
 
-
-        dateCreateBtn.apply {
-
-            text = task.date.toString()
-
-        }
 
         dateDueBtn.apply {
 
-            text = task.date.toString()
+            text = task.creationDate.toString()
 
         }
 
@@ -72,7 +68,7 @@ class TaskFragment : Fragment(),DatePickerDialogFragment.DatePickerCallback {
 
         dateDueBtn.setOnClickListener {
             val args = Bundle()
-            args.putSerializable(Task_DATE_KEY,task.date)
+            args.putSerializable(Task_DATE_KEY,task.creationDate)
 
             val datePicker = DatePickerDialogFragment()
             datePicker.arguments = args
@@ -84,7 +80,7 @@ class TaskFragment : Fragment(),DatePickerDialogFragment.DatePickerCallback {
         }
 
 
-        val textWatcher = object:TextWatcher{
+        val titleTextWatcher = object:TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 //i will do nothing
             }
@@ -92,7 +88,8 @@ class TaskFragment : Fragment(),DatePickerDialogFragment.DatePickerCallback {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 Log.d("ASRAR", p0.toString())
                 task.title= p0.toString()
-                task.detail= p0.toString()
+
+
             }
 
             override fun afterTextChanged(p0: Editable?) {
@@ -101,8 +98,29 @@ class TaskFragment : Fragment(),DatePickerDialogFragment.DatePickerCallback {
 
         }
 
-        titleEditText.addTextChangedListener(textWatcher)
-        detailEditText.addTextChangedListener(textWatcher)
+        val detailTextWatcher = object:TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                //i will do nothing
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                Log.d("ASRAR", p0.toString())
+                  task.detail =p0.toString()
+
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                //i will do nothing
+            }
+
+        }
+
+        titleEditText.addTextChangedListener(titleTextWatcher)
+       detailEditText.addTextChangedListener(detailTextWatcher)
+
+        deleteTask.setOnClickListener {
+
+        }
 
         isCompletedCheckBox.setOnCheckedChangeListener {  _, isChecked ->
             task.isCompleted = isChecked
@@ -129,8 +147,8 @@ class TaskFragment : Fragment(),DatePickerDialogFragment.DatePickerCallback {
                      task = it
                     titleEditText.setText(it.title)
                     detailEditText.setText(it.detail)
-                    dateCreateBtn.text = it.date.toString()
-                    dateDueBtn.text = it.date.toString()
+                    dateCreateBtn.text = it.creationDate.toString()
+                    dateDueBtn.text = it.duoDate.toString()
                     isCompletedCheckBox.isChecked = it.isCompleted
 
 
@@ -144,7 +162,7 @@ class TaskFragment : Fragment(),DatePickerDialogFragment.DatePickerCallback {
     }
 
     override fun onDateSelected(date: Date) {
-        task.date = date
+        task.duoDate = date
         dateDueBtn.text = date.toString()
     }
 

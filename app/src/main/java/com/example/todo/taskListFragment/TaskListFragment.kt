@@ -1,6 +1,7 @@
 package com.example.todo.taskListFragment
 
 import android.os.Bundle
+import android.text.format.DateFormat
 import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
@@ -12,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.R
 import com.example.todo.database.Task
 import com.example.todo.taskFragment.TaskFragment
+import java.lang.String.format
+import java.text.MessageFormat.format
 
 const val KEY_ID = "myTaskId"
 class TaskListFragment : Fragment() {
@@ -37,6 +40,7 @@ class TaskListFragment : Fragment() {
             R.id.new_task ->  {
                 val task = Task()
                 taskListViewModel.addTask(task)
+
 
                 val args = Bundle()
                 args.putSerializable(KEY_ID,task.id)
@@ -99,10 +103,12 @@ class TaskListFragment : Fragment() {
             itemView.setOnClickListener(this)
         }
 
+
+        private val dateFormat = "yyyy-MM-dd   HH:mm "
         fun bind(task : Task){
             this.task = task
             titleTextView.text = task.title
-            dateTextView.text = task.date.toString()
+            dateTextView.text = DateFormat.format(dateFormat,task.creationDate)
             isCompletedImageView.visibility = if (task.isCompleted){
                 View.VISIBLE
             }else{
