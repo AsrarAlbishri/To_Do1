@@ -15,6 +15,7 @@ import com.example.todo.database.Task
 import com.example.todo.taskFragment.TaskFragment
 import java.lang.String.format
 import java.text.MessageFormat.format
+import java.util.*
 
 const val KEY_ID = "myTaskId"
 class TaskListFragment : Fragment() {
@@ -34,6 +35,8 @@ class TaskListFragment : Fragment() {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
     }
+
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return  when(item.itemId){
@@ -109,6 +112,7 @@ class TaskListFragment : Fragment() {
             this.task = task
             titleTextView.text = task.title
             dateTextView.text = DateFormat.format(dateFormat,task.creationDate)
+
             isCompletedImageView.visibility = if (task.isCompleted){
                 View.VISIBLE
             }else{

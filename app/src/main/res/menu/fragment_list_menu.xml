@@ -7,9 +7,4 @@
         android:icon="@android:drawable/ic_menu_add"
         android:title="Item"
         app:showAsAction="ifRoom|withText" />
-    <item
-        android:id="@+id/delete_task"
-        android:icon="@android:drawable/ic_menu_delete"
-        android:title="Item"
-        app:showAsAction="ifRoom|withText" />
 </menu>

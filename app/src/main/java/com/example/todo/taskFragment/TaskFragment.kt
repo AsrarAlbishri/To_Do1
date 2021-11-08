@@ -17,6 +17,8 @@ import com.example.todo.DatePickerDialogFragment
 import com.example.todo.R
 import com.example.todo.database.Task
 import com.example.todo.taskListFragment.KEY_ID
+import com.example.todo.taskListFragment.TaskListFragment
+import com.example.todo.taskListFragment.TaskListViewModel
 import java.util.*
 
 
@@ -119,6 +121,22 @@ class TaskFragment : Fragment(),DatePickerDialogFragment.DatePickerCallback {
        detailEditText.addTextChangedListener(detailTextWatcher)
 
         deleteTask.setOnClickListener {
+
+            fragmentViewModel.deleteTask(task)
+
+            val args = Bundle()
+            args.putSerializable(KEY_ID,task.id)
+
+            val fragment = TaskListFragment()
+            fragment.arguments = args
+
+            activity?.let {
+                it.supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.fragment_container,fragment)
+                    .addToBackStack(null) //عشان لما يوديني على الفراقمنت الثانيه وبعدين اقدر ارجع للاولى
+                    .commit()
+            }
 
         }
 
