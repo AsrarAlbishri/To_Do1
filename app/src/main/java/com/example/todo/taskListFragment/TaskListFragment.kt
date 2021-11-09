@@ -113,15 +113,20 @@ class TaskListFragment : Fragment() {
         fun bind(task : Task){
             this.task = task
             titleTextView.text = task.title
-            dateTextView.text = DateFormat.format(dateFormat,task.duoDate)
+
+
+
 
             val currentDate = Date()
             if (task.duoDate != null) {
+                dateTextView.text = DateFormat.format(dateFormat,task.duoDate)
                 overDueTask.visibility = if (task.duoDate!!.after(currentDate)) {
                     View.GONE
                 } else {
                     View.VISIBLE
                 }
+            }else{
+                dateTextView.text = ""
             }
 
             isCompletedImageView.visibility = if (task.isCompleted){
