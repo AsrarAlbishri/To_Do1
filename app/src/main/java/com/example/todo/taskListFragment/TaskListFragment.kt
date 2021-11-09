@@ -1,5 +1,6 @@
 package com.example.todo.taskListFragment
 
+import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.text.format.DateFormat
 import android.view.*
@@ -101,17 +102,27 @@ class TaskListFragment : Fragment() {
         private val titleTextView: TextView = itemView.findViewById(R.id.task_title_item)
         private val dateTextView: TextView = itemView.findViewById(R.id.task_date_item)
         private  val isCompletedImageView: ImageView = itemView.findViewById(R.id.is_completed_iv)
+        private val overDueTask : TextView = itemView.findViewById(R.id.overdue_task)
 
         init {
             itemView.setOnClickListener(this)
         }
 
 
-        private val dateFormat = "yyyy-MM-dd   HH:mm "
+        private val dateFormat = "yyyy-MM-dd"
         fun bind(task : Task){
             this.task = task
             titleTextView.text = task.title
-            dateTextView.text = DateFormat.format(dateFormat,task.creationDate)
+            dateTextView.text = DateFormat.format(dateFormat,task.duoDate)
+
+            val currentDate = Date()
+            if (task.duoDate != null) {
+                overDueTask.visibility = if (task.duoDate!!.after(currentDate)) {
+                    View.GONE
+                } else {
+                    View.VISIBLE
+                }
+            }
 
             isCompletedImageView.visibility = if (task.isCompleted){
                 View.VISIBLE
