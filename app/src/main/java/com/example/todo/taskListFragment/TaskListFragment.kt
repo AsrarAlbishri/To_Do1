@@ -113,10 +113,7 @@ class TaskListFragment : Fragment() {
         fun bind(task : Task){
             this.task = task
             titleTextView.text = task.title
-
-
-
-
+            
             val currentDate = Date()
             if (task.duoDate != null) {
                 dateTextView.text = DateFormat.format(dateFormat,task.duoDate)
