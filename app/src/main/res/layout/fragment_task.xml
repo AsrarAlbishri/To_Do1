@@ -5,7 +5,7 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@color/light_blue_1"
     tools:context=".taskFragment.TaskFragment">
 
     <TextView
@@ -16,7 +16,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:text="@string/task_title_label"
-        android:textColor="#B85F5F"
+        android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,7 +47,7 @@
         android:layout_marginTop="12dp"
         android:layout_marginEnd="16dp"
         android:text="@string/task_details_label"
-        android:textColor="#B85F5F"
+        android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -56,32 +56,19 @@
         app:layout_constraintTop_toBottomOf="@+id/task_title" />
 
     <Button
-        android:id="@+id/task_create_date"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:backgroundTint="#CF6565"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/task_details"
-        tools:text="Wed Nov 14 11:56 EST 2018" />
-
-    <Button
         android:id="@+id/task_date_due"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="36dp"
         android:layout_marginEnd="8dp"
-        android:backgroundTint="#CF6565"
+        android:backgroundTint="@color/blue"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/task_create_date"
-        tools:text="Wed Nov 14 11:56 EST 2018" />
+        app:layout_constraintTop_toBottomOf="@+id/task_details"
+         />
 
     <EditText
         android:id="@+id/task_details"
@@ -89,6 +76,7 @@
         android:layout_height="68dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:ems="10"
         android:hint="@string/task_details_hint"
         android:inputType="textPersonName"
@@ -103,10 +91,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="16dp"
         android:text="@string/task_completed_label"
-        android:textColor="#B85F5F"
+        android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -116,9 +104,9 @@
 
     <ImageView
         android:id="@+id/task_deleted_iv"
-        android:layout_width="69dp"
-        android:layout_height="77dp"
-        android:background="#C89595"
+        android:layout_width="54dp"
+        android:layout_height="61dp"
+        android:background="@color/light_blue"
         android:src="@drawable/images1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -14,9 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.R
 import com.example.todo.database.Task
 import com.example.todo.taskFragment.TaskFragment
-import java.lang.String.format
-import java.text.MessageFormat.format
-import java.util.*
+ import java.util.*
 
 const val KEY_ID = "myTaskId"
 class TaskListFragment : Fragment() {
@@ -76,7 +74,7 @@ class TaskListFragment : Fragment() {
 
         taskRecyclerView = view.findViewById(R.id.task_recycler_view)
 
-        val linearLayoutManager = LinearLayoutManager(context) // سوينا اوبجكت من linear
+        val linearLayoutManager = LinearLayoutManager(context) // سوي اوبجكت من linear
         taskRecyclerView.layoutManager = linearLayoutManager
 
         return view
@@ -109,25 +107,32 @@ class TaskListFragment : Fragment() {
         }
 
 
-        private val dateFormat = "yyyy-MM-dd"
+        private val dateFormat = "EEE, MMM dd, yyyy"
         fun bind(task : Task){
             this.task = task
             titleTextView.text = task.title
             
             val currentDate = Date()
+
+
             if (task.duoDate != null) {
-                dateTextView.text = DateFormat.format(dateFormat,task.duoDate)
-                overDueTask.visibility = if (task.duoDate!!.after(currentDate)) {
-                    View.GONE
-                } else {
+                dateTextView.text = DateFormat.format(dateFormat, task.duoDate)
+                overDueTask.visibility = if (currentDate.after(task.duoDate)) {
                     View.VISIBLE
+
+                } else {
+                    View.GONE
                 }
             }else{
-                dateTextView.text = ""
-            }
+                       dateTextView.text = ""
+                   }
+
+            
 
             isCompletedImageView.visibility = if (task.isCompleted){
+                overDueTask.visibility = View.GONE
                 View.VISIBLE
+
             }else{
                 View.GONE
             }
