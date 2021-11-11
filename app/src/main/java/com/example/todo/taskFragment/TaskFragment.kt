@@ -18,6 +18,7 @@ import com.example.todo.database.Task
 import com.example.todo.taskListFragment.KEY_ID
 import com.example.todo.taskListFragment.TaskListFragment
 import android.text.format.DateFormat
+ import com.example.todo.taskListFragment.TaskListViewModel
  import java.util.*
 
 
@@ -31,6 +32,7 @@ class TaskFragment : Fragment(),DatePickerDialogFragment.DatePickerCallback {
     private lateinit var detailEditText: EditText
      private lateinit var dateDueBtn:Button
      private lateinit var deleteTask : ImageView
+     private lateinit var addBtn : Button
 
     private lateinit var task : Task
 
@@ -49,6 +51,7 @@ class TaskFragment : Fragment(),DatePickerDialogFragment.DatePickerCallback {
         dateDueBtn = view.findViewById(R.id.task_date_due)
         detailEditText = view.findViewById(R.id.task_details)
         deleteTask = view.findViewById(R.id.task_deleted_iv)
+        addBtn = view.findViewById(R.id.add_btn)
 
 
 
@@ -137,6 +140,17 @@ class TaskFragment : Fragment(),DatePickerDialogFragment.DatePickerCallback {
 
         }
 
+        addBtn.setOnClickListener {
+            fragmentViewModel.saveUpdate(task)
+            val fragment = TaskListFragment()
+            activity?.let {
+                it.supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.fragment_container,fragment)
+                    .addToBackStack(null) //عشان لما يوديني على الفراقمنت الثانيه وبعدين اقدر ارجع للاولى
+                    .commit()
+            }
+        }
 
     }
 
@@ -161,6 +175,7 @@ class TaskFragment : Fragment(),DatePickerDialogFragment.DatePickerCallback {
                     detailEditText.setText(it.detail)
                     dateDueBtn.text = it.duoDate.toString()
 
+
                 }
 
             }
@@ -177,8 +192,10 @@ class TaskFragment : Fragment(),DatePickerDialogFragment.DatePickerCallback {
 
     override fun onStop() {
         super.onStop()
-        fragmentViewModel.saveUpdate(task)
+        if(task.title.isEmpty()){
+            fragmentViewModel.deleteTask(task)
+        }else {
+            fragmentViewModel.saveUpdate(task)
+        }
     }
-
-
 }

@@ -99,7 +99,7 @@ class TaskListFragment : Fragment() {
 
         private val titleTextView: TextView = itemView.findViewById(R.id.task_title_item)
         private val dateTextView: TextView = itemView.findViewById(R.id.task_date_item)
-         private val overDueTask : TextView = itemView.findViewById(R.id.overdue_task)
+        private val overDueTask : TextView = itemView.findViewById(R.id.overdue_task)
         private val isCompletedCheckBox: CheckBox =  itemView.findViewById(R.id.task_completed)
 
         init {
@@ -123,14 +123,13 @@ class TaskListFragment : Fragment() {
                         overDueTask.visibility = View.GONE
                     }else{
                         overDueTask.visibility = View.VISIBLE
-                    }
+                     }
 
                 } else {
                      overDueTask.visibility =  View.GONE
                 }
-            }else{
-                       dateTextView.text = ""
-                   }
+            }
+
 
             isCompletedCheckBox.isChecked = task.isCompleted
 
@@ -179,7 +178,5 @@ class TaskListFragment : Fragment() {
 
         override fun getItemCount(): Int = tasks.size
     }
-
-
 
 }

@@ -13,6 +13,8 @@
     <color name="dark_gray">#bcbcbc</color>
     <color name="light_blue_1">#e0f2f1</color>
     <color name="dark_b">#aebfbe</color>
-<!--    <color name="bage">DED9C4</color>-->
-<!--    <color name="bbbbb">D0CAB2</color>-->
+    <color name="action_bar">#678983</color>
+    <color name="action_bar1">#89B5AF</color>
+
+
 </resources>
