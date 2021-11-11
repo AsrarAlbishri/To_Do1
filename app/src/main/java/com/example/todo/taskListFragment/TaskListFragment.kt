@@ -1,11 +1,10 @@
 package com.example.todo.taskListFragment
 
-import android.icu.text.SimpleDateFormat
-import android.os.Bundle
+ import android.os.Bundle
 import android.text.format.DateFormat
 import android.view.*
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.CheckBox
+ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -84,6 +83,7 @@ class TaskListFragment : Fragment() {
             super.onViewCreated(view, savedInstanceState)
         taskListViewModel.liveDataTasks.observe(viewLifecycleOwner, Observer {
             updateUI(it)
+
         }
         )
     }
@@ -99,8 +99,8 @@ class TaskListFragment : Fragment() {
 
         private val titleTextView: TextView = itemView.findViewById(R.id.task_title_item)
         private val dateTextView: TextView = itemView.findViewById(R.id.task_date_item)
-        private  val isCompletedImageView: ImageView = itemView.findViewById(R.id.is_completed_iv)
-        private val overDueTask : TextView = itemView.findViewById(R.id.overdue_task)
+         private val overDueTask : TextView = itemView.findViewById(R.id.overdue_task)
+        private val isCompletedCheckBox: CheckBox =  itemView.findViewById(R.id.task_completed)
 
         init {
             itemView.setOnClickListener(this)
@@ -117,27 +117,29 @@ class TaskListFragment : Fragment() {
 
             if (task.duoDate != null) {
                 dateTextView.text = DateFormat.format(dateFormat, task.duoDate)
-                overDueTask.visibility = if (currentDate.after(task.duoDate)) {
-                    View.VISIBLE
+
+                if (currentDate.after(task.duoDate)) {
+                    if (task.isCompleted) {
+                        overDueTask.visibility = View.GONE
+                    }else{
+                        overDueTask.visibility = View.VISIBLE
+                    }
 
                 } else {
-                    View.GONE
+                     overDueTask.visibility =  View.GONE
                 }
             }else{
                        dateTextView.text = ""
                    }
 
-            
+            isCompletedCheckBox.isChecked = task.isCompleted
 
-            isCompletedImageView.visibility = if (task.isCompleted){
-                overDueTask.visibility = View.GONE
-                View.VISIBLE
-
-            }else{
-                View.GONE
+            isCompletedCheckBox.setOnCheckedChangeListener {  _, isChecked ->
+                task.isCompleted = isChecked
+                taskListViewModel.saveUpdate(task)
             }
-
         }
+
 
         override fun onClick(v: View?) {
 
@@ -160,6 +162,7 @@ class TaskListFragment : Fragment() {
 
         }
 
+
     }
 
     private inner class TaskAdapter(var tasks:List<Task>):RecyclerView.Adapter<TaskHolder>(){
@@ -176,5 +179,7 @@ class TaskListFragment : Fragment() {
 
         override fun getItemCount(): Int = tasks.size
     }
+
+
 
 }

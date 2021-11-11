@@ -1,7 +1,6 @@
 package com.example.todo.taskFragment
 
-import android.opengl.Visibility
-import android.os.Bundle
+ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -10,8 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.CheckBox
-import android.widget.EditText
+ import android.widget.EditText
 import android.widget.ImageView
 import androidx.lifecycle.ViewModelProvider
 import com.example.todo.DatePickerDialogFragment
@@ -19,7 +17,7 @@ import com.example.todo.R
 import com.example.todo.database.Task
 import com.example.todo.taskListFragment.KEY_ID
 import com.example.todo.taskListFragment.TaskListFragment
-   import android.text.format.DateFormat
+import android.text.format.DateFormat
  import java.util.*
 
 
@@ -31,10 +29,8 @@ class TaskFragment : Fragment(),DatePickerDialogFragment.DatePickerCallback {
 
     private lateinit var titleEditText: EditText
     private lateinit var detailEditText: EditText
-    //private lateinit var dateCreateBtn:Button
-    private lateinit var dateDueBtn:Button
-    private lateinit var isCompletedCheckBox:CheckBox
-    private lateinit var deleteTask : ImageView
+     private lateinit var dateDueBtn:Button
+     private lateinit var deleteTask : ImageView
 
     private lateinit var task : Task
 
@@ -50,9 +46,7 @@ class TaskFragment : Fragment(),DatePickerDialogFragment.DatePickerCallback {
 
 
         titleEditText = view.findViewById(R.id.task_title)
-        //dateCreateBtn = view.findViewById(R.id.task_create_date)
         dateDueBtn = view.findViewById(R.id.task_date_due)
-        isCompletedCheckBox = view.findViewById(R.id.task_completed)
         detailEditText = view.findViewById(R.id.task_details)
         deleteTask = view.findViewById(R.id.task_deleted_iv)
 
@@ -80,6 +74,7 @@ class TaskFragment : Fragment(),DatePickerDialogFragment.DatePickerCallback {
             datePicker.setTargetFragment(this,0)
 
             datePicker.show(this.parentFragmentManager,"date picker")
+
 
         }
 
@@ -142,11 +137,6 @@ class TaskFragment : Fragment(),DatePickerDialogFragment.DatePickerCallback {
 
         }
 
-        isCompletedCheckBox.setOnCheckedChangeListener {  _, isChecked ->
-            task.isCompleted = isChecked
-
-
-        }
 
     }
 
@@ -169,10 +159,7 @@ class TaskFragment : Fragment(),DatePickerDialogFragment.DatePickerCallback {
                      task = it
                     titleEditText.setText(it.title)
                     detailEditText.setText(it.detail)
-                    //dateCreateBtn.text = it.creationDate.toString()
                     dateDueBtn.text = it.duoDate.toString()
-                    isCompletedCheckBox.isChecked = it.isCompleted
-
 
                 }
 
@@ -186,8 +173,7 @@ class TaskFragment : Fragment(),DatePickerDialogFragment.DatePickerCallback {
     override fun onDateSelected(date: Date) {
         task.duoDate = date
         dateDueBtn.text = DateFormat.format(dateFormat,task.duoDate)
-//        dateDueBtn.text = date.toString()
-    }
+     }
 
     override fun onStop() {
         super.onStop()

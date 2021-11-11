@@ -13,7 +13,8 @@ class TaskListViewModel : ViewModel() {
     fun addTask(task: Task){
         taskRepository.addTask(task)
     }
-
-
+    fun saveUpdate(task: Task){
+        taskRepository.updateTask(task)
+    }
 
 }

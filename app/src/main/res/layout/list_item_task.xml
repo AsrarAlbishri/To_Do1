@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
 
     android:layout_margin="20dp"
-    android:background="#2A6A6060"
+    android:background="#2A817A7A"
     android:orientation="vertical">
 
     <TextView
@@ -18,7 +18,7 @@
         android:layout_marginTop="4dp"
         android:text="Task Title :"
         android:textColor="@color/black"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/overdue_task" />
@@ -31,20 +31,25 @@
         android:layout_marginTop="8dp"
         android:text="Task Date"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/task_title_item" />
 
-    <ImageView
-        android:id="@+id/is_completed_iv"
-        android:layout_width="42dp"
-        android:layout_height="52dp"
+    <CheckBox
+        android:id="@+id/task_completed"
+        android:layout_width="61dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:capitalize="characters"
+        android:ellipsize="middle"
+        android:textColor="@color/black"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/checkbox_on_background" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/overdue_task"
