@@ -31,6 +31,4 @@ class TaskFragmentViewModel : ViewModel() {
         taskRepository.deleteTask(task)
     }
 
-
-
 }

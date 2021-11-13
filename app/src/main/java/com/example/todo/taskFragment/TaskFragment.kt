@@ -30,9 +30,9 @@ class TaskFragment : Fragment(),DatePickerDialogFragment.DatePickerCallback {
 
     private lateinit var titleEditText: EditText
     private lateinit var detailEditText: EditText
-     private lateinit var dateDueBtn:Button
-     private lateinit var deleteTask : ImageView
-     private lateinit var addBtn : Button
+    private lateinit var dateDueBtn: Button
+    private lateinit var deleteTask : ImageView
+    private lateinit var addBtn : Button
 
     private lateinit var task : Task
 
@@ -118,7 +118,7 @@ class TaskFragment : Fragment(),DatePickerDialogFragment.DatePickerCallback {
         }
 
         titleEditText.addTextChangedListener(titleTextWatcher)
-       detailEditText.addTextChangedListener(detailTextWatcher)
+        detailEditText.addTextChangedListener(detailTextWatcher)
 
         deleteTask.setOnClickListener {
 
@@ -134,7 +134,7 @@ class TaskFragment : Fragment(),DatePickerDialogFragment.DatePickerCallback {
                 it.supportFragmentManager
                     .beginTransaction()
                     .replace(R.id.fragment_container,fragment)
-                    .addToBackStack(null) //عشان لما يوديني على الفراقمنت الثانيه وبعدين اقدر ارجع للاولى
+                    .addToBackStack(null)
                     .commit()
             }
 
@@ -147,7 +147,7 @@ class TaskFragment : Fragment(),DatePickerDialogFragment.DatePickerCallback {
                 it.supportFragmentManager
                     .beginTransaction()
                     .replace(R.id.fragment_container,fragment)
-                    .addToBackStack(null) //عشان لما يوديني على الفراقمنت الثانيه وبعدين اقدر ارجع للاولى
+                    .addToBackStack(null)
                     .commit()
             }
         }
@@ -174,15 +174,9 @@ class TaskFragment : Fragment(),DatePickerDialogFragment.DatePickerCallback {
                     titleEditText.setText(it.title)
                     detailEditText.setText(it.detail)
                     dateDueBtn.text = it.duoDate.toString()
-
-
                 }
-
             }
-
         )
-
-
     }
 
     override fun onDateSelected(date: Date) {

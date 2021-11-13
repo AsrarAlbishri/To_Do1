@@ -45,15 +45,14 @@ class TaskListFragment : Fragment() {
 
                 val args = Bundle()
                 args.putSerializable(KEY_ID,task.id)
-                // كود الانتقال من fragment الى fragment
-                val fragment = TaskFragment()
+                 val fragment = TaskFragment()
                 fragment.arguments = args
 
                 activity?.let {
                     it.supportFragmentManager
                         .beginTransaction()
                         .replace(R.id.fragment_container,fragment)
-                        .addToBackStack(null) //عشان لما يوديني على الفراقمنت الثانيه وبعدين اقدر ارجع للاولى
+                        .addToBackStack(null)
                         .commit()
                 }
 
@@ -73,7 +72,7 @@ class TaskListFragment : Fragment() {
 
         taskRecyclerView = view.findViewById(R.id.task_recycler_view)
 
-        val linearLayoutManager = LinearLayoutManager(context) // سوي اوبجكت من linear
+        val linearLayoutManager = LinearLayoutManager(context)
         taskRecyclerView.layoutManager = linearLayoutManager
 
         return view
@@ -100,7 +99,7 @@ class TaskListFragment : Fragment() {
         private val titleTextView: TextView = itemView.findViewById(R.id.task_title_item)
         private val dateTextView: TextView = itemView.findViewById(R.id.task_date_item)
         private val overDueTask : TextView = itemView.findViewById(R.id.overdue_task)
-        private val isCompletedCheckBox: CheckBox =  itemView.findViewById(R.id.task_completed)
+        private val isCompletedCheckBox: CheckBox = itemView.findViewById(R.id.task_completed)
 
         init {
             itemView.setOnClickListener(this)
@@ -154,7 +153,7 @@ class TaskListFragment : Fragment() {
                     it.supportFragmentManager
                         .beginTransaction()
                         .replace(R.id.fragment_container,fragment)
-                        .addToBackStack(null)   //يعني يحافظ على الفراقمنت اللي قبل لما اضغط زر رجوع وارجعلها القاها موجوده
+                        .addToBackStack(null)
                         .commit()
                 }
             }
