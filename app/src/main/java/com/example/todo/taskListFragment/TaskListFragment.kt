@@ -126,7 +126,10 @@ class TaskListFragment : Fragment() {
 
                 } else {
                      overDueTask.visibility =  View.GONE
+
                 }
+            }else{
+                dateTextView.text = " "
             }
 
 
